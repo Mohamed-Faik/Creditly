@@ -84,7 +84,7 @@ export function AnimatedSocialIcons({
                 rotate: active ? 0 : 45,
               }}
               transition={{
-                type: "ease-in",
+                type: "tween",
                 duration: 0.4,
               }}
             >
