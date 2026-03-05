@@ -6,7 +6,7 @@ import { FaqAccordion } from "@/components/ui/faq-chat-accordion";
 import { AnimatedSocialIcons } from "@/components/ui/floating-action-button";
 
 export default function Home() {
-  const faqData = [];
+  const faqData: any[] = [];
 
   const socialIcons = [
     { 
