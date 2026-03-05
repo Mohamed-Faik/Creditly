@@ -41,7 +41,7 @@ export function AnimatedSocialIcons({
           animate={{
             x: active ? "calc(100% + 16px)" : 0,
           }}
-          transition={{ type: "ease-in", duration: 0.5 }}
+          transition={{ type: "tween", duration: 0.5 }}
         >
           <motion.button
             className={cn(
