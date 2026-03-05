@@ -52,7 +52,7 @@ export function AnimatedSocialIcons({
             onClick={() => setActive(!active)}
             animate={{ rotate: active ? 45 : 0 }}
             transition={{
-              type: "ease-in",
+              type: "tween",
               duration: 0.5,
             }}
           >
