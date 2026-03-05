@@ -14,7 +14,6 @@ const DemoCreditCard = () => {
                 <div className="w-full flex justify-center mb-8">
                     <HandWrittenTitle
                         title="Prepaid Cards"
-                        subtitle="5$+"
                     />
                 </div>
 
@@ -147,8 +146,7 @@ const DemoCreditCard = () => {
                 </div>
             </div>
         </div>
-
-        </div>
+    </div>
     );
 };
 
