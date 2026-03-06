@@ -17,7 +17,7 @@ function HandWrittenTitle({
             opacity: 1,
             transition: {
                 duration: 3,
-                ease: [0.42, 0, 0.58, 1],
+                ease: "cubic-bezier(0.42, 0, 0.58, 1)",
             },
         },
     };
