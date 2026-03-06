@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 interface HandWrittenTitleProps {
     title?: string;
     subtitle?: string;
@@ -10,14 +10,14 @@ function HandWrittenTitle({
     title = "Hand Written",
     subtitle,
 }: HandWrittenTitleProps) {
-    const draw = {
+    const draw: Variants = {
         hidden: { pathLength: 0, opacity: 0 },
         visible: {
             pathLength: 1,
             opacity: 1,
             transition: {
                 duration: 3,
-                ease: "cubic-bezier(0.42, 0, 0.58, 1)",
+                ease: "easeInOut",
             },
         },
     };
