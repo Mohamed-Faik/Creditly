@@ -11,6 +11,7 @@ interface CosmicNebulaMastercardProps {
     secondaryColor?: string
     glowColor?: string
   }
+  overlay?: React.ReactNode
   logoText?: {
     topText?: string
     bottomText?: string
@@ -28,6 +29,7 @@ const CosmicNebulaMastercard: React.FC<CosmicNebulaMastercardProps> = ({
     secondaryColor: "#0056b3", // Deep space blue
     glowColor: "rgba(15, 160, 206, 0.8)", // Enhanced bright blue glow
   },
+  overlay,
   logoText = { topText: "NEBULA", bottomText: "FLUX" },
   height = "280px",
   width = "450px",
@@ -251,6 +253,15 @@ const CosmicNebulaMastercard: React.FC<CosmicNebulaMastercardProps> = ({
           <div className="absolute bottom-4 sm:bottom-6 left-0 w-full px-4 sm:px-6">
             <div className="text-white/80 tracking-wider text-xs sm:text-sm" style={{textShadow: "0 0 5px rgba(51, 195, 240, 0.5)"}}>{cardholderName}</div>
           </div>
+          
+          {/* Centered overlay slot (e.g., button); transforms with the card */}
+          {overlay && (
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <div className="pointer-events-auto">
+                {overlay}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

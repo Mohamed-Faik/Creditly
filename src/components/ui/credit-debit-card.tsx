@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 // --- PROPS INTERFACE ---
 // Defines the types for the props that the component accepts.
@@ -10,20 +11,36 @@ interface FlippableCreditCardProps extends React.HTMLAttributes<HTMLDivElement> 
     expiryDate: string;
     cvv: string;
     colorClass?: string;
+    onUnlock?: () => void;
 }
 
 const FlippableCreditCard = React.forwardRef<HTMLDivElement, FlippableCreditCardProps>(
-    ({ className, cardholderName, cardNumber, expiryDate, cvv, colorClass, ...props }, ref) => {
+    ({ className, cardholderName, cardNumber, expiryDate, cvv, colorClass, onUnlock, ...props }, ref) => {
+        const [isTouch, setIsTouch] = React.useState(false);
+        const [isFlipped, setIsFlipped] = React.useState(false);
+
+        React.useEffect(() => {
+            if (typeof window !== "undefined") {
+                const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+                setIsTouch(mq.matches);
+            }
+        }, []);
         return (
             // The main container uses `group` to control the flip effect on hover.
             // `perspective` is used to create the 3D effect.
             <div
                 className={cn("group h-48 w-76 [perspective:1000px]", className)}
                 ref={ref}
+                onClick={() => {
+                    if (isTouch) setIsFlipped(true);
+                }}
                 {...props}
             >
                 {/* The inner container handles the transform animation. */}
-                <div className="relative h-full w-full rounded-xl shadow-xl transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                <div className={cn(
+                    "relative h-full w-full rounded-xl shadow-xl transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]",
+                    isFlipped && "[transform:rotateY(180deg)]"
+                )}>
 
                     {/* --- CARD FRONT --- */}
                     <div className={cn("absolute h-full w-full rounded-xl [backface-visibility:hidden]", colorClass ? `bg-gradient-to-br ${colorClass} text-white` : "bg-card text-card-foreground")}>
@@ -66,11 +83,13 @@ const FlippableCreditCard = React.forwardRef<HTMLDivElement, FlippableCreditCard
                         <div className="flex h-full flex-col">
                             {/* Magnetic Strip */}
                             <div className="mt-6 h-10 w-full bg-neutral-900" />
-                            {/* CVV Section */}
-                            <div className="mx-4 mt-4 flex justify-end">
-                                <div className="flex h-8 w-full items-center justify-end rounded-md bg-neutral-200 pr-4 dark:bg-neutral-700">
+                            <div className="mx-4 mt-4 flex items-center gap-3">
+                                <div className="flex h-8 flex-1 items-center justify-end rounded-md bg-neutral-200 pr-4 dark:bg-neutral-700">
                                     <p className="font-mono text-sm text-black dark:text-white">{cvv}</p>
                                 </div>
+                                <Button size="sm" onClick={onUnlock} className="shrink-0">
+                                    Unlock
+                                </Button>
                             </div>
                             <p className="self-end pr-4 text-xs font-semibold uppercase opacity-70">CVV</p>
 
