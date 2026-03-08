@@ -125,8 +125,9 @@ const Scene = () => {
     const dot = float(smoothstep(0.5, 0.49, dist)).mul(brightness);
 
     const depth = tDepthMap;
+    const depthScalar = depth.x;
 
-    const flow = oneMinus(smoothstep(0, 0.02, abs(depth.sub(uProgress))));
+    const flow = oneMinus(smoothstep(0, 0.02, abs(depthScalar.sub(uProgress))));
 
     const mask = dot.mul(flow).mul(vec3(10, 0, 0));
 
